@@ -90,7 +90,7 @@ own behaviour (its libxml2 tree, no `:is()`, lossy shorthand handling).
 Finally, a browser judges whether inlining preserved the cascade at all.
 `make cascade` (`TestCascade`, `testdata/oracle/cascade.mjs`) renders every
 fixture in headless Chrome twice, as written and as inlined, and compares
-every element's computed style. 572 of 590 render identically. The rest are
+every element's computed style. 573 of 591 render identically. The rest are
 listed with their reason in `testdata/skip/cascade.txt`. They are limits of
 inlining itself: a rule matching the `<html>` element a browser wraps around
 a fragment, an inlined declaration outranking a rule kept in `<style>`, the
