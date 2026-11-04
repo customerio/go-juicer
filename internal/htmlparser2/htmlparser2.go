@@ -28,6 +28,8 @@ import (
 	"slices"
 	"strconv"
 	"strings"
+	"unicode"
+	"unicode/utf8"
 
 	"golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
@@ -214,10 +216,7 @@ func Parse(src []byte, xml bool) *html.Node {
 				var name string
 				n, name, end = closeTagLike(src, start, xml)
 				if name != "" {
-					if !xml {
-						name = lowerASCII(name)
-					}
-					closeTag(name)
+					closeTag(foldName(name, !xml))
 				}
 			} else {
 				n, end = markupDecl(src, start, xml)
@@ -588,12 +587,65 @@ func tagEnd(src []byte, s int) int {
 	return -1
 }
 
-// foldName lowercases a name outside XML mode.
+// foldName lowercases a name outside XML mode, as JavaScript's toLowerCase does.
 func foldName(b string, lower bool) string {
-	if lower {
-		return lowerASCII(b)
+	if !lower {
+		return b
 	}
-	return b
+	for i := range len(b) {
+		if b[i] >= utf8.RuneSelf {
+			return lowerJS(b)
+		}
+	}
+	return lowerASCII(b)
+}
+
+// lowerJS is toLowerCase for non-ASCII: Go's simple mappings plus SpecialCasing's
+// unconditional İ and final sigma.
+func lowerJS(s string) string {
+	var sb strings.Builder
+	sb.Grow(len(s))
+	for i, r := range s {
+		switch {
+		case r == 'İ':
+			sb.WriteString("i\u0307")
+		case r == 'Σ' && finalSigma(s, i):
+			sb.WriteRune('ς')
+		default:
+			sb.WriteRune(unicode.ToLower(r))
+		}
+	}
+	return sb.String()
+}
+
+// finalSigma reports whether the Σ at s[i] ends a word: a cased letter before it
+// and none after, skipping case-ignorable runes.
+func finalSigma(s string, i int) bool {
+	before := false
+	for j := i; j > 0; {
+		r, n := utf8.DecodeLastRuneInString(s[:j])
+		j -= n
+		if !caseIgnorable(r) {
+			before = cased(r)
+			break
+		}
+	}
+	if !before {
+		return false
+	}
+	for _, r := range s[i+len("Σ"):] {
+		if !caseIgnorable(r) {
+			return !cased(r)
+		}
+	}
+	return true
+}
+
+func cased(r rune) bool { return unicode.IsUpper(r) || unicode.IsLower(r) || unicode.IsTitle(r) }
+
+// ponytail: approximates Unicode's Case_Ignorable by category; use the derived property if a name ever needs it.
+func caseIgnorable(r rune) bool {
+	return strings.ContainsRune("'.:^`·", r) || unicode.In(r, unicode.Mn, unicode.Me, unicode.Cf, unicode.Lm, unicode.Sk)
 }
 
 // Render serializes the tree the way dom-serializer does with
