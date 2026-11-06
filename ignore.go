@@ -5,7 +5,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/mailproto/go-juicer/internal/postcss"
+	"github.com/customerio/go-juicer/internal/postcss"
 )
 
 // juice's ignore comments. Inlining reads them over one stream, every <style>

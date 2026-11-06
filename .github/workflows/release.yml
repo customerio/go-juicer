@@ -52,4 +52,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: warm the Go module proxy
-        run: curl -fsS "https://proxy.golang.org/github.com/mailproto/go-juicer/@v/${GITHUB_REF_NAME}.info"
+        run: curl -fsS "https://proxy.golang.org/github.com/customerio/go-juicer/@v/${GITHUB_REF_NAME}.info"

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/mailproto/go-juicer/internal/mensch"
-	"github.com/mailproto/go-juicer/internal/selector"
+	"github.com/customerio/go-juicer/internal/mensch"
+	"github.com/customerio/go-juicer/internal/selector"
 )
 
 // Where the Juice9 profile reads stylesheets differently from juice 12.

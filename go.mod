@@ -1,4 +1,4 @@
-module github.com/mailproto/go-juicer
+module github.com/customerio/go-juicer
 
 go 1.26.0
 

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mailproto/go-juicer/internal/htmlparser2"
+	"github.com/customerio/go-juicer/internal/htmlparser2"
 )
 
 // The benchmark document: ~99 KB, 1500 elements, 185 selectors, shaped like a

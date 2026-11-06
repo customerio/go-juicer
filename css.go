@@ -5,8 +5,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/mailproto/go-juicer/internal/postcss"
-	"github.com/mailproto/go-juicer/internal/selector"
+	"github.com/customerio/go-juicer/internal/postcss"
+	"github.com/customerio/go-juicer/internal/selector"
 )
 
 // decl is one declaration from a stylesheet.

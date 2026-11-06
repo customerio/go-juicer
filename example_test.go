@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/mailproto/go-juicer"
+	"github.com/customerio/go-juicer"
 )
 
 func Example() {
