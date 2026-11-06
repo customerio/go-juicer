@@ -3,7 +3,7 @@ package juicer
 import (
 	"bytes"
 
-	"github.com/mailproto/go-juicer/internal/selector"
+	"github.com/customerio/go-juicer/internal/selector"
 	"golang.org/x/net/html"
 )
 

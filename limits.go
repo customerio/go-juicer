@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/mailproto/go-juicer/internal/htmlparser2"
+	"github.com/customerio/go-juicer/internal/htmlparser2"
 	"golang.org/x/net/html"
 )
 

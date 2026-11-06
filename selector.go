@@ -2,7 +2,7 @@ package juicer
 
 import (
 	"github.com/andybalholm/cascadia"
-	"github.com/mailproto/go-juicer/internal/selector"
+	"github.com/customerio/go-juicer/internal/selector"
 )
 
 // cascadia is used only as a match predicate: its Specificity() scores :hover

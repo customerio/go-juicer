@@ -4,7 +4,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/mailproto/go-juicer/internal/selector"
+	"github.com/customerio/go-juicer/internal/selector"
 )
 
 // selNode is a postcss-selector-parser node.
